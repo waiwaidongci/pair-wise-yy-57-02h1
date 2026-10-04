@@ -20,10 +20,10 @@ export const routes = [
 ]
 
 export const seedCases: TestCase[] = [
-  { id:'TC-101',name:'X 至 S 正线接车进路建立',routeIds:['R-01'],precondition:'1G、2G 空闲，道岔在定位，无敌对进路',version:'v26.09',status:'通过',steps:[{id:'TS-1',action:'排列 X → S 接车进路',expected:'X 信号开放，P-01/P-02 锁闭',result:'通过',actual:'信号开放，联锁状态一致',evidence:'截图 XS-026'},{id:'TS-2',action:'人工扳动 P-02',expected:'道岔锁闭，操作被拒绝',result:'通过',actual:'拒绝并记录操作',evidence:'日志 LG-108'}] },
-  { id:'TC-102',name:'X 至 S2 侧线接车与3G占用',routeIds:['R-02'],precondition:'3G 空闲，P-03 反位',version:'v26.09',status:'执行中',steps:[{id:'TS-3',action:'排列 X → S2 侧线进路',expected:'X、S2 信号开放，P-03 锁闭反位',result:'通过',actual:'进路建立正常',evidence:'截图 XS-031'},{id:'TS-4',action:'模拟 3G 轨道区段占用',expected:'立即关闭 S2 信号，保持进路锁闭',result:'未执行'}] },
-  { id:'TC-103',name:'敌对进路 R-01 / R-02 互锁',routeIds:['R-01','R-02'],precondition:'1G 空闲，P-01/P-02 可转换',version:'v26.09',status:'失败',failureReason:'实测可短暂同时开放 X 信号，疑似软件版本差异',steps:[{id:'TS-5',action:'建立 R-01 后尝试排列 R-02',expected:'拒绝排列并保持 R-01 锁闭',result:'失败',actual:'R-02 请求进入等待态，X 信号未保持',evidence:'录屏 VID-014、日志 LG-119'}] },
-  { id:'TC-104',name:'2G 至3G 调车进路和绝缘节',routeIds:['R-04'],precondition:'T-02、T-03 空闲',version:'v26.10',status:'阻塞',failureReason:'等待 T-03 绝缘节调整完成',steps:[{id:'TS-6',action:'排列 2G → 3G 调车进路',expected:'D 信号开放，P-03 反位锁闭',result:'未执行'}] },
+  { id:'TC-101',name:'X 至 S 正线接车进路建立',routeIds:['R-01'],precondition:'1G、2G 空闲，道岔在定位，无敌对进路',version:'v26.09',rev:1,status:'通过',steps:[{id:'TS-1',action:'排列 X → S 接车进路',expected:'X 信号开放，P-01/P-02 锁闭',dependencies:[],result:'通过',actual:'信号开放，联锁状态一致',evidence:'截图 XS-026'},{id:'TS-2',action:'人工扳动 P-02',expected:'道岔锁闭，操作被拒绝',dependencies:['TS-1'],result:'通过',actual:'拒绝并记录操作',evidence:'日志 LG-108'},{id:'TS-7',action:'核对进路表示器与轨道区段占用表示',expected:'表示器显示与进路锁闭一致，无错误占用表示',dependencies:['TS-1','TS-2'],result:'通过',actual:'表示一致，无错误占用',evidence:'截图 XS-027'}] },
+  { id:'TC-102',name:'X 至 S2 侧线接车与3G占用',routeIds:['R-02'],precondition:'3G 空闲，P-03 反位',version:'v26.09',rev:1,status:'执行中',steps:[{id:'TS-3',action:'排列 X → S2 侧线进路',expected:'X、S2 信号开放，P-03 锁闭反位',dependencies:[],result:'通过',actual:'进路建立正常',evidence:'截图 XS-031'},{id:'TS-4',action:'模拟 3G 轨道区段占用',expected:'立即关闭 S2 信号，保持进路锁闭',dependency:'TS-3',result:'未执行'}] },
+  { id:'TC-103',name:'敌对进路 R-01 / R-02 互锁',routeIds:['R-01','R-02'],precondition:'1G 空闲，P-01/P-02 可转换',version:'v26.09',rev:1,status:'失败',failureReason:'实测可短暂同时开放 X 信号，疑似软件版本差异',steps:[{id:'TS-5',action:'建立 R-01 后尝试排列 R-02',expected:'拒绝排列并保持 R-01 锁闭',dependencies:[],result:'失败',actual:'R-02 请求进入等待态，X 信号未保持',evidence:'录屏 VID-014、日志 LG-119'}] },
+  { id:'TC-104',name:'2G 至3G 调车进路和绝缘节',routeIds:['R-04'],precondition:'T-02、T-03 空闲',version:'v26.10',rev:1,status:'阻塞',failureReason:'等待 T-03 绝缘节调整完成',steps:[{id:'TS-6',action:'排列 2G → 3G 调车进路',expected:'D 信号开放，P-03 反位锁闭',dependencies:[],result:'未执行'}] },
 ]
 
 export const seedExecutions: ExecutionRecord[] = [
